@@ -34,6 +34,9 @@ namespace PDC
             if (daTbl.Rows.Count == 1)
             {
                 MessageBox.Show("Success");
+
+                Form2 n = new Form2();
+                n.Show();
             }
             else
             {

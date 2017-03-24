@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="pdcDataSet" targetNamespace="http://tempuri.org/pdcDataSet.xsd" xmlns:mstns="http://tempuri.org/pdcDataSet.xsd" xmlns="http://tempuri.org/pdcDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="pdcConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="pdcConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.PDC.Properties.Settings.GlobalReference.Default.pdcConnectionString" Provider="MySql.Data.MySqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="homeTableAdapter" GeneratorDataComponentClassName="homeTableAdapter" Name="home" UserDataComponentName="homeTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="pdcConnectionString (Settings)" DbObjectName="pdc.home" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `idHome`, `idUser` FROM `home`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="roomsTableAdapter" GeneratorDataComponentClassName="roomsTableAdapter" Name="rooms" UserDataComponentName="roomsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="pdcConnectionString (Settings)" DbObjectName="pdc.rooms" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `idRoom`, `idHouse`, `roomType`, `north`, `east`, `south`, `west` FROM `rooms`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="sensorsTableAdapter" GeneratorDataComponentClassName="sensorsTableAdapter" Name="sensors" UserDataComponentName="sensorsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="pdcConnectionString (Settings)" DbObjectName="pdc.sensors" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `idSensor`, `idRooms`, `sensorType`, `alarmStatus`, `deviceStatus`, `value` FROM `sensors`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="pdcDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="pdcDataSet" msprop:Generator_UserDSName="pdcDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="home" msprop:Generator_TableClassName="homeDataTable" msprop:Generator_TableVarName="tablehome" msprop:Generator_TablePropName="home" msprop:Generator_RowDeletingName="homeRowDeleting" msprop:Generator_RowChangingName="homeRowChanging" msprop:Generator_RowEvHandlerName="homeRowChangeEventHandler" msprop:Generator_RowDeletedName="homeRowDeleted" msprop:Generator_UserTableName="home" msprop:Generator_RowChangedName="homeRowChanged" msprop:Generator_RowEvArgName="homeRowChangeEvent" msprop:Generator_RowClassName="homeRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="rooms" msprop:Generator_TableClassName="roomsDataTable" msprop:Generator_TableVarName="tablerooms" msprop:Generator_TablePropName="rooms" msprop:Generator_RowDeletingName="roomsRowDeleting" msprop:Generator_RowChangingName="roomsRowChanging" msprop:Generator_RowEvHandlerName="roomsRowChangeEventHandler" msprop:Generator_RowDeletedName="roomsRowDeleted" msprop:Generator_UserTableName="rooms" msprop:Generator_RowChangedName="roomsRowChanged" msprop:Generator_RowEvArgName="roomsRowChangeEvent" msprop:Generator_RowClassName="roomsRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sensors" msprop:Generator_TableClassName="sensorsDataTable" msprop:Generator_TableVarName="tablesensors" msprop:Generator_TablePropName="sensors" msprop:Generator_RowDeletingName="sensorsRowDeleting" msprop:Generator_RowChangingName="sensorsRowChanging" msprop:Generator_RowEvHandlerName="sensorsRowChangeEventHandler" msprop:Generator_RowDeletedName="sensorsRowDeleted" msprop:Generator_UserTableName="sensors" msprop:Generator_RowChangedName="sensorsRowChanged" msprop:Generator_RowEvArgName="sensorsRowChangeEvent" msprop:Generator_RowClassName="sensorsRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
