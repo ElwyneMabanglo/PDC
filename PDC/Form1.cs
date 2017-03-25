@@ -18,7 +18,7 @@ namespace PDC
             InitializeComponent();
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        public void btnLogin_Click(object sender, EventArgs e)
         {
             string connString = "server=127.0.0.1;user id=root;database=pdc";
             MySqlConnection conn = new MySqlConnection(connString);
@@ -28,17 +28,21 @@ namespace PDC
             //sqlCmd.CommandText = "SELECT * FROM users WHERE username= '" + txtUsername.Text.Trim() + "' AND password = '" + txtPassword.Text.Trim() + "'";
             sqlCmd.CommandText = "SELECT * FROM users WHERE username= 'test' AND password = 'test'";
 
-            MySqlDataAdapter da = new MySqlDataAdapter();
+
+         
+
+
+            MySqlDataAdapter da = new MySqlDataAdapter();   
             da.SelectCommand = sqlCmd;
             DataTable daTbl = new DataTable();
             da.Fill(daTbl);
+
+           
             if (daTbl.Rows.Count == 1)
             {
-             
-
-              
-                Form3 x = new Form3();
-       
+                // https://stackoverflow.com/questions/9022118/access-cell-value-of-datatable
+                string id = daTbl.Rows[0][0].ToString();
+                controlPanel x = new controlPanel(id);
                 x.Show();
             }
             else
