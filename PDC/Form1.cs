@@ -25,7 +25,8 @@ namespace PDC
             MySqlCommand sqlCmd = conn.CreateCommand();
             sqlCmd.CommandType = CommandType.Text;
 
-            sqlCmd.CommandText = "SELECT * FROM users WHERE username= '" + txtUsername.Text.Trim() + "' AND password = '" + txtPassword.Text.Trim() + "'";
+            //sqlCmd.CommandText = "SELECT * FROM users WHERE username= '" + txtUsername.Text.Trim() + "' AND password = '" + txtPassword.Text.Trim() + "'";
+            sqlCmd.CommandText = "SELECT * FROM users WHERE username= 'test' AND password = 'test'";
 
             MySqlDataAdapter da = new MySqlDataAdapter();
             da.SelectCommand = sqlCmd;
@@ -33,10 +34,12 @@ namespace PDC
             da.Fill(daTbl);
             if (daTbl.Rows.Count == 1)
             {
-                MessageBox.Show("Success");
+             
 
-                Form2 n = new Form2();
-                n.Show();
+              
+                Form3 x = new Form3();
+       
+                x.Show();
             }
             else
             {
