@@ -99,6 +99,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="room.cs" />
     <EmbeddedResource Include="controlPanel.resx">
       <DependentUpon>controlPanel.cs</DependentUpon>
     </EmbeddedResource>
