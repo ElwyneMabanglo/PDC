@@ -28,15 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtHomeName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnBuildHome = new System.Windows.Forms.Button();
             this.txtHeight = new System.Windows.Forms.TextBox();
-            this.txtWidth = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -50,10 +48,8 @@
             // 
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.txtHomeName);
-            this.groupBox1.Controls.Add(this.txtWidth);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.btnBuildHome);
-            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtHeight);
             this.groupBox1.Location = new System.Drawing.Point(6, 12);
             this.groupBox1.Name = "groupBox1";
@@ -83,9 +79,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(25, 51);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 13);
+            this.label3.Size = new System.Drawing.Size(32, 13);
             this.label3.TabIndex = 9;
-            this.label3.Text = "Height";
+            this.label3.Text = "X / Y";
             // 
             // btnBuildHome
             // 
@@ -103,22 +99,6 @@
             this.txtHeight.Name = "txtHeight";
             this.txtHeight.Size = new System.Drawing.Size(50, 20);
             this.txtHeight.TabIndex = 3;
-            // 
-            // txtWidth
-            // 
-            this.txtWidth.Location = new System.Drawing.Point(163, 48);
-            this.txtWidth.Name = "txtWidth";
-            this.txtWidth.Size = new System.Drawing.Size(50, 20);
-            this.txtWidth.TabIndex = 7;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(125, 51);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Width";
             // 
             // groupBox2
             // 
@@ -139,6 +119,7 @@
             this.button2.TabIndex = 2;
             this.button2.Text = "Delete Selected Home";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -156,8 +137,8 @@
             this.dgvHomeList.AllowUserToDeleteRows = false;
             this.dgvHomeList.AllowUserToResizeColumns = false;
             this.dgvHomeList.AllowUserToResizeRows = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            this.dgvHomeList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            this.dgvHomeList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvHomeList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvHomeList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvHomeList.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
@@ -202,8 +183,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnBuildHome;
         private System.Windows.Forms.TextBox txtHeight;
-        private System.Windows.Forms.TextBox txtWidth;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;

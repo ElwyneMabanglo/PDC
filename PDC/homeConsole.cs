@@ -24,20 +24,36 @@ namespace PDC
 
         private void btnBuildHome_Click(object sender, EventArgs e)
         {
-
-            string connString = "server=127.0.0.1;user id=root;database=pdc";
-            MySqlConnection conn = new MySqlConnection(connString);
-            conn.Open();
-            MySqlCommand sqlCmd = conn.CreateCommand();
-
-            sqlCmd.CommandText = "INSERT INTO home (idUser,homeName,height,width) VALUES (@idUser, @homeName,@height, @width)";
-            sqlCmd.Parameters.AddWithValue("@idUser", idUser);
-            sqlCmd.Parameters.AddWithValue("@homeName", txtHomeName.Text.Trim());
-            sqlCmd.Parameters.AddWithValue("@height", txtHeight.Text.Trim());
-            sqlCmd.Parameters.AddWithValue("@width", txtWidth.Text.Trim());
-            sqlCmd.ExecuteNonQuery();
-            conn.Close();
-            loadHomes();
+            try
+            {
+                if (Int32.Parse(txtHeight.Text.Trim()) < 2)
+                {
+                    MessageBox.Show("Value must be higher than 2");
+                }
+                else if (txtHomeName.Text == "")
+                {
+                    MessageBox.Show("Please Enter Home Name");
+                }
+                else
+                {
+                    string connString = "server=127.0.0.1;user id=root;database=pdc";
+                    MySqlConnection conn = new MySqlConnection(connString);
+                    conn.Open();
+                    MySqlCommand sqlCmd = conn.CreateCommand();
+                    sqlCmd.CommandText = "INSERT INTO home (idUser,homeName,y,x) VALUES (@idUser, @homeName,@y, @x)";
+                    sqlCmd.Parameters.AddWithValue("@idUser", idUser);
+                    sqlCmd.Parameters.AddWithValue("@homeName", txtHomeName.Text.Trim());
+                    sqlCmd.Parameters.AddWithValue("@y", txtHeight.Text.Trim());
+                    sqlCmd.Parameters.AddWithValue("@x", txtHeight.Text.Trim());
+                    sqlCmd.ExecuteNonQuery();
+                    conn.Close();
+                    loadHomes();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Please enter name / X/Y Value");
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -52,10 +68,7 @@ namespace PDC
             MySqlConnection conn = new MySqlConnection(connString);
             MySqlCommand sqlCmd = conn.CreateCommand();
             sqlCmd.CommandType = CommandType.Text;
-
-            //sqlCmd.CommandText = "SELECT * FROM users WHERE username= '" + txtUsername.Text.Trim() + "' AND password = '" + txtPassword.Text.Trim() + "'";
-            sqlCmd.CommandText = "SELECT idHome,homeName,width,length FROM home WHERE home.idUser = " + idUser;
-
+            sqlCmd.CommandText = "SELECT idHome,homeName,y,x FROM home WHERE home.idUser = " + idUser;   
             MySqlDataAdapter da = new MySqlDataAdapter();
             da.SelectCommand = sqlCmd;
             DataTable daTbl = new DataTable();
@@ -63,6 +76,31 @@ namespace PDC
             BindingSource bSource = new BindingSource();
             bSource.DataSource = daTbl;
             dgvHomeList.DataSource = bSource;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string selectedHome = null;
+            // Get selected value from datagrid - https://stackoverflow.com/questions/7657137/datagridview-full-row-selection-but-get-single-cell-value
+            if (dgvHomeList.SelectedCells.Count > 0)
+            {
+                int selectedrowindex = dgvHomeList.SelectedCells[0].RowIndex;
+                DataGridViewRow selectedRow = dgvHomeList.Rows[selectedrowindex];
+                selectedHome = Convert.ToString(selectedRow.Cells["idHome"].Value);
+            }
+            string connString = "server=127.0.0.1;user id=root;database=pdc";
+            string Query = "DELETE FROM home WHERE idHome='" + selectedHome + "';";
+            MySqlConnection MyConn2 = new MySqlConnection(connString);
+            MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
+            MySqlDataReader MyReader2;
+            MyConn2.Open();
+            MyReader2 = MyCommand2.ExecuteReader();
+            MessageBox.Show("Home ID" + selectedHome + " Deleted");
+            loadHomes();
+            while (MyReader2.Read())
+            {
+            }
+            MyConn2.Close();
         }
     }
 }
