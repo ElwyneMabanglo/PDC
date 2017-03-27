@@ -36,7 +36,7 @@
             this.txtY = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.chkDoor = new System.Windows.Forms.CheckedListBox();
             this.cmboRoomType = new System.Windows.Forms.ComboBox();
             this.cmbHome = new System.Windows.Forms.ComboBox();
             this.button3 = new System.Windows.Forms.Button();
@@ -50,6 +50,9 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.txtID = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSensors)).BeginInit();
@@ -99,14 +102,14 @@
             // 
             // txtX
             // 
-            this.txtX.Location = new System.Drawing.Point(593, 484);
+            this.txtX.Location = new System.Drawing.Point(593, 550);
             this.txtX.Name = "txtX";
             this.txtX.Size = new System.Drawing.Size(20, 20);
             this.txtX.TabIndex = 4;
             // 
             // txtY
             // 
-            this.txtY.Location = new System.Drawing.Point(616, 484);
+            this.txtY.Location = new System.Drawing.Point(616, 550);
             this.txtY.Name = "txtY";
             this.txtY.Size = new System.Drawing.Size(20, 20);
             this.txtY.TabIndex = 5;
@@ -114,7 +117,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(529, 487);
+            this.label1.Location = new System.Drawing.Point(529, 553);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 13);
             this.label1.TabIndex = 6;
@@ -122,26 +125,27 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.checkedListBox1);
+            this.groupBox2.Controls.Add(this.button2);
+            this.groupBox2.Controls.Add(this.chkDoor);
             this.groupBox2.Location = new System.Drawing.Point(524, 154);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(186, 96);
+            this.groupBox2.Size = new System.Drawing.Size(186, 120);
             this.groupBox2.TabIndex = 17;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Add Door";
             // 
-            // checkedListBox1
+            // chkDoor
             // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Items.AddRange(new object[] {
+            this.chkDoor.FormattingEnabled = true;
+            this.chkDoor.Items.AddRange(new object[] {
             "North",
             "East",
             "South",
             "West"});
-            this.checkedListBox1.Location = new System.Drawing.Point(6, 19);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(174, 64);
-            this.checkedListBox1.TabIndex = 0;
+            this.chkDoor.Location = new System.Drawing.Point(6, 19);
+            this.chkDoor.Name = "chkDoor";
+            this.chkDoor.Size = new System.Drawing.Size(174, 64);
+            this.chkDoor.TabIndex = 0;
             // 
             // cmboRoomType
             // 
@@ -171,7 +175,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(524, 256);
+            this.button3.Location = new System.Drawing.Point(524, 322);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(186, 23);
             this.button3.TabIndex = 24;
@@ -290,7 +294,7 @@
             // 
             this.groupBox1.Controls.Add(this.dgvSensors);
             this.groupBox1.Controls.Add(this.btnDeleteSensor);
-            this.groupBox1.Location = new System.Drawing.Point(524, 285);
+            this.groupBox1.Location = new System.Drawing.Point(524, 351);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(186, 129);
             this.groupBox1.TabIndex = 35;
@@ -301,18 +305,47 @@
             // 
             this.groupBox5.Controls.Add(this.cmbSensors);
             this.groupBox5.Controls.Add(this.button7);
-            this.groupBox5.Location = new System.Drawing.Point(524, 421);
+            this.groupBox5.Location = new System.Drawing.Point(524, 487);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(186, 51);
             this.groupBox5.TabIndex = 36;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Add Sensor";
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(6, 89);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(174, 23);
+            this.button2.TabIndex = 37;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(530, 281);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(174, 23);
+            this.button6.TabIndex = 37;
+            this.button6.Text = "Update";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // txtID
+            // 
+            this.txtID.Location = new System.Drawing.Point(642, 550);
+            this.txtID.Name = "txtID";
+            this.txtID.Size = new System.Drawing.Size(71, 20);
+            this.txtID.TabIndex = 38;
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(725, 523);
+            this.ClientSize = new System.Drawing.Size(725, 587);
+            this.Controls.Add(this.txtID);
+            this.Controls.Add(this.button6);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox4);
@@ -345,7 +378,7 @@
         private System.Windows.Forms.TextBox txtY;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.CheckedListBox chkDoor;
         private System.Windows.Forms.ComboBox cmboRoomType;
         private System.Windows.Forms.ComboBox cmbHome;
         private System.Windows.Forms.Button button3;
@@ -359,5 +392,8 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.TextBox txtID;
     }
 }

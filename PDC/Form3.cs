@@ -57,8 +57,8 @@ namespace PDC
             {
                 for (int col = 0; col < dgv.Rows[row].Cells.Count; col++)
                 {
-                    room newRoom = new room(Int32.Parse(cmbHome.SelectedValue.ToString()), "", 0, 0, 0, 0, row, col);
-                    roomList[col,row] = newRoom;
+                   // room newRoom = new room(Int32.Parse(cmbHome.SelectedValue.ToString()), "", 0, 0, 0, 0, row, col);
+                   // roomList[col,row] = newRoom;
                 }
             }
         }
@@ -93,7 +93,7 @@ namespace PDC
                 MySqlCommand sqlCmd = conn.CreateCommand();
                 sqlCmd.CommandType = CommandType.Text;
 
-                sqlCmd.CommandText = "SELECT idRoom FROM rooms WHERE x = @x AND y = @y AND idHouse = @idHouse ";
+                sqlCmd.CommandText = "SELECT * FROM rooms WHERE x = @x AND y = @y AND idHouse = @idHouse ";
                 sqlCmd.Parameters.Add(new MySqlParameter("@x", x));
                 sqlCmd.Parameters.Add(new MySqlParameter("@y", y));
                 sqlCmd.Parameters.Add(new MySqlParameter("@idHouse", idHome));
@@ -104,11 +104,37 @@ namespace PDC
                 da.Fill(daTbl);
 
                 idRoom = daTbl.Rows[0][0].ToString();
+                txtID.Text = idHome;
 
                 //MessageBox.Show("Room ID: " + idRoom);
 
-
                 sensorList();
+
+                for (int i = 0; i < chkDoor.Items.Count; i++)
+                {
+                    // For every other item in the list, set as checked.
+                    if (daTbl.Rows[0][3].ToString() == "1")
+                    {
+                        chkDoor.SetItemChecked(i, true);
+                    }
+                    else if (daTbl.Rows[0][4].ToString() == "1")
+                    {
+                        chkDoor.SetItemChecked(i, true);
+                    }
+                    else if (daTbl.Rows[0][5].ToString() == "1")
+                    {
+                        chkDoor.SetItemChecked(i, true);
+                    }
+                    else if (daTbl.Rows[0][6].ToString() == "1")
+                    {
+                        chkDoor.SetItemChecked(i, true);
+                    }
+                    else
+                    {
+                        chkDoor.SetItemChecked(i, false);
+                    }
+                }
+
             }
             catch
             {
@@ -279,10 +305,10 @@ namespace PDC
                     int x = reader.GetInt32("x");
                     int y = reader.GetInt32("y");
 
-                    room newRoom = new room(idHouse, roomType, north, east, south, west, x, y);
+                    //room newRoom = new room(idHouse, roomType, north, east, south, west, x, y);
 
-                    roomList[x, y] = newRoom;
-                    dgv.Rows[x].Cells[y].Value = roomType;
+                    //roomList[y, x] = newRoom;
+                    dgv.Rows[y].Cells[x].Value = roomType;
 
                 }
 
@@ -401,6 +427,73 @@ namespace PDC
         private void cmbSensors_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+
+            if (chkDoor.CheckedItems.Count != 0)
+            {
+                // If so, loop through all checked items and print results.  
+                string s = "";
+                for (int x = 0; x <= chkDoor.CheckedItems.Count - 1; x++)
+                {
+                    if(chkDoor.CheckedItems[x].ToString() == "North")
+                    {
+                        roomList[Int32.Parse(txtY.Text), Int32.Parse(txtX.Text)].North = 1;
+
+                    }
+                    else if (chkDoor.CheckedItems[x].ToString() == "East")
+                    {
+                        roomList[Int32.Parse(txtY.Text), Int32.Parse(txtX.Text)].East = 1;
+                    }
+                    else if (chkDoor.CheckedItems[x].ToString() == "South")
+                    {
+                        roomList[Int32.Parse(txtY.Text), Int32.Parse(txtX.Text)].South = 1;
+                    }
+                    else if (chkDoor.CheckedItems[x].ToString() == "West")
+                    {
+                        roomList[Int32.Parse(txtY.Text), Int32.Parse(txtX.Text)].West = 1;
+                    }
+                }
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+
+            //UPDATE `rooms` SET `roomType` = 'Toilet' WHERE `rooms`.`idRoom` = 1;
+            //string Query = "update student.studentinfo set idStudentInfo='" + this.IdTextBox.Text + "',Name='" + this.NameTextBox.Text + "',Father_Name='" + this.FnameTextBox.Text + "',Age='" + this.AgeTextBox.Text + "',Semester='" + this.SemesterTextBox.Text + "' where idStudentInfo='" + this.IdTextBox.Text + "';";
+            try
+            {
+                string connString = "server=127.0.0.1;user id=root;database=pdc";
+                MySqlConnection con = new MySqlConnection(connString);
+                string query = "UPDATE rooms SET idHouse=@idHouse,roomType=@roomType,north=@north,east=@east,south=@east,west=@west,x=@x,y=@y WHERE idRoom=@idRoom";
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                con.Open();
+                for (int row = 0; row < dgv.Rows.Count; row++)
+                {
+                    for (int col = 0; col < dgv.Rows[row].Cells.Count; col++)
+                    {
+                        cmd.Parameters.AddWithValue("@idHouse", roomList[row, col].IdHouse);
+                        cmd.Parameters.AddWithValue("@roomType", roomList[row, col].RoomType);
+                        cmd.Parameters.AddWithValue("@north", roomList[row, col].North);
+                        cmd.Parameters.AddWithValue("@east", roomList[row, col].East);
+                        cmd.Parameters.AddWithValue("@south", roomList[row, col].South);
+                        cmd.Parameters.AddWithValue("@west", roomList[row, col].West);
+                        cmd.Parameters.AddWithValue("@x", roomList[row, col].X);
+                        cmd.Parameters.AddWithValue("@y", roomList[row, col].Y);
+                        cmd.Parameters.AddWithValue("@idRoom", idRoom);
+                        cmd.ExecuteNonQuery();
+                        cmd.Parameters.Clear();
+                    }
+                }
+                con.Close();
+            }
+            catch (MySqlException er)
+            {
+                MessageBox.Show("Error:" + er.ToString());
+            }
         }
     }
 }

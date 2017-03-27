@@ -10,6 +10,7 @@ namespace PDC
     class room
     {
 
+        public int IdRoom { get; set; }
         public int IdHouse { get; set; }
         public string RoomType { get; set; }
         public int North { get; set; }
@@ -19,8 +20,9 @@ namespace PDC
         public int X { get; set; }
 
         public int Y { get; set; }
-        public room(int idHouse, string roomType, int north, int east, int sout, int west, int x, int y)
+        public room(int idRoom, int idHouse, string roomType, int north, int east, int sout, int west, int x, int y)
         {
+            IdRoom = idRoom;
             IdHouse = idHouse;
             RoomType = roomType;
             North = north;

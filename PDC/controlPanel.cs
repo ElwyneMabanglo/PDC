@@ -36,5 +36,17 @@ namespace PDC
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            frmFloorPlan x = new frmFloorPlan(Int32.Parse(idUser));
+            x.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            floorPlan_v2 x = new floorPlan_v2(Int32.Parse(idUser));
+            x.Show();
+        }
     }
 }
