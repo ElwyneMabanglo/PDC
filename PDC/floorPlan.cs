@@ -62,6 +62,39 @@ namespace PDC
                     roomList[col, row] = newRoom;
                 }
             }
+
+            btnSaveFloorPlan.Enabled = false;
+            btnUpdate.Enabled = true;
+
+            try
+            {
+                string connString = "server=127.0.0.1;user id=root;database=pdc";
+                MySqlConnection con = new MySqlConnection(connString);
+                string query = "INSERT INTO  rooms (idHouse,roomType,north,east,south,west,x,y) VALUES (@idHouse,@roomType,@north,@east,@south,@west,@x,@y)";
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                con.Open();
+                for (int row = 0; row < dgv.Rows.Count; row++)
+                {
+                    for (int col = 0; col < dgv.Rows.Count; col++)
+                    {
+                        cmd.Parameters.AddWithValue("@idHouse", roomList[row, col].IdHouse);
+                        cmd.Parameters.AddWithValue("@roomType", roomList[row, col].RoomType);
+                        cmd.Parameters.AddWithValue("@north", roomList[row, col].North);
+                        cmd.Parameters.AddWithValue("@east", roomList[row, col].East);
+                        cmd.Parameters.AddWithValue("@south", roomList[row, col].South);
+                        cmd.Parameters.AddWithValue("@west", roomList[row, col].West);
+                        cmd.Parameters.AddWithValue("@x", roomList[row, col].X);
+                        cmd.Parameters.AddWithValue("@y", roomList[row, col].Y);
+                        cmd.ExecuteNonQuery();
+                        cmd.Parameters.Clear();
+                    }
+                }
+                con.Close();
+            }
+            catch (MySqlException er)
+            {
+                MessageBox.Show("Error:" + er.ToString());
+            }
         }
 
         public void loadHomesIntoDropDown()
@@ -243,7 +276,7 @@ namespace PDC
                 }
             }
 
-  
+
 
             string connString = "server=127.0.0.1;user id=root;database=pdc";
             MySqlConnection conn = new MySqlConnection(connString);
@@ -263,7 +296,10 @@ namespace PDC
             da.SelectCommand = sqlCmd;
             da.Fill(daTbl);
 
-            idRoom = Int32.Parse( daTbl.Rows[0][0].ToString());
+
+            //MessageBox.Show(daTbl.Rows[0][0].ToString());
+
+            idRoom = Int32.Parse(daTbl.Rows[0][0].ToString());
 
             sensorList();
 
@@ -392,48 +428,40 @@ namespace PDC
 
         private void btnAddDoor_Click(object sender, EventArgs e)
         {
-
-            if (chkDoor.CheckedItems.Count != 0)
+            if ((string)chkDoor.Items[0] == "North" && chkDoor.GetItemCheckState(0) == CheckState.Checked)
             {
-                // If so, loop through all checked items and print results.  
-                for (int j = 0; j <= chkDoor.CheckedItems.Count - 1; j++)
-                {
-                    if (chkDoor.CheckedItems[j].ToString() == "North")
-                    {
-                        roomList[x, y].North = 1;
-                    }
-                    else
-                    {
-                        roomList[x, y].North = 0;
-                    }
+                roomList[x, y].North = 1;
+            }
+            else 
+            {
+                roomList[x, y].North = 0;
+            }
 
-                    if (chkDoor.CheckedItems[j].ToString() == "East")
-                    {
-                        roomList[x, y].East = 1;
-                    }
-                    else
-                    {
-                        roomList[x, y].East = 0;
-                    }
+            if ((string)chkDoor.Items[1] == "East" && chkDoor.GetItemCheckState(1) == CheckState.Checked)
+            {
+                roomList[x, y].East = 1;
+            }
+            else
+            {
+                roomList[x, y].East = 0;
+            }
 
-                    if (chkDoor.CheckedItems[j].ToString() == "South")
-                    {
-                        roomList[x, y].South = 1;
-                    }
-                    else
-                    {
-                        roomList[x, y].South = 0;
-                    }
+            if ((string)chkDoor.Items[2] == "South" && chkDoor.GetItemCheckState(2) == CheckState.Checked)
+            {
+                roomList[x, y].South = 1;
+            }
+            else
+            {
+                roomList[x, y].South = 0;
+            }
 
-                    if (chkDoor.CheckedItems[j].ToString() == "West")
-                    {
-                        roomList[x, y].West = 1;
-                    }
-                    else
-                    {
-                        roomList[x, y].West = 0;
-                    }
-                }
+            if ((string)chkDoor.Items[3] == "West" && chkDoor.GetItemCheckState(3) == CheckState.Checked)
+            {
+                roomList[x, y].West = 1;
+            }
+            else
+            {
+                roomList[x, y].West = 0;
             }
         }
 
@@ -490,7 +518,7 @@ namespace PDC
                 cmd.Parameters.Clear();
                 con.Close();
 
-               sensorList();
+                sensorList();
             }
             catch
             {
