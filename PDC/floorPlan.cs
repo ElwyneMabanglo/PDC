@@ -16,6 +16,7 @@ namespace PDC
         public int idUser = 0;
         public int idHome = 0;
         public int idRoom = 0;
+        public int idSensor = 0;
         public int x = 0;
         public int y = 0;
 
@@ -242,6 +243,8 @@ namespace PDC
                 }
             }
 
+  
+
             string connString = "server=127.0.0.1;user id=root;database=pdc";
             MySqlConnection conn = new MySqlConnection(connString);
             MySqlCommand sqlCmd = conn.CreateCommand();
@@ -259,6 +262,10 @@ namespace PDC
 
             da.SelectCommand = sqlCmd;
             da.Fill(daTbl);
+
+            idRoom = Int32.Parse( daTbl.Rows[0][0].ToString());
+
+            sensorList();
 
             for (int i = 0; i < chkDoor.Items.Count; i++)
             {
@@ -427,6 +434,100 @@ namespace PDC
                         roomList[x, y].West = 0;
                     }
                 }
+            }
+        }
+
+        public void sensorList()
+        {
+
+            dgvSensors.DataSource = null;
+
+            string connString = "server=127.0.0.1;user id=root;database=pdc";
+            MySqlConnection conn = new MySqlConnection(connString);
+            MySqlCommand sqlCmd = conn.CreateCommand();
+            sqlCmd.CommandType = CommandType.Text;
+            MySqlDataAdapter da = new MySqlDataAdapter();
+            da.SelectCommand = sqlCmd;
+
+            sqlCmd.CommandText = "SELECT idSensor,sensorType FROM sensors WHERE idRoom = @idRoom";
+            sqlCmd.Parameters.Add(new MySqlParameter("@idRoom", idRoom));
+
+            DataTable daTbl_2 = new DataTable();
+            BindingSource bSource = new BindingSource();
+
+            da.SelectCommand = sqlCmd;
+            da.Fill(daTbl_2);
+
+            try
+            {
+                idSensor = Int32.Parse(daTbl_2.Rows[0][0].ToString());
+                bSource.DataSource = daTbl_2;
+                dgvSensors.DataSource = bSource;
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string connString = "server=127.0.0.1;user id=root;database=pdc";
+                MySqlConnection con = new MySqlConnection(connString);
+
+                string query = null;
+
+                query = "INSERT INTO `sensors` (`idSensor`, `idRoom`, `sensorType`, `alarmStatus`, `deviceStatus`, `value`) VALUES (NULL, @idRoom, @sensorType, 'Not Monitoring', 'off', NULL);";
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                con.Open();
+                cmd.Parameters.AddWithValue("@idRoom", idRoom);
+                cmd.Parameters.AddWithValue("@sensorType", cmbSensors.SelectedItem.ToString());
+
+                cmd.ExecuteNonQuery();
+                cmd.Parameters.Clear();
+                con.Close();
+
+               sensorList();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void btnDeleteSensor_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string selectedSensor = null;
+                // Get selected value from datagrid - https://stackoverflow.com/questions/7657137/datagridview-full-row-selection-but-get-single-cell-value
+                if (dgvSensors.SelectedCells.Count > 0)
+                {
+                    int selectedrowindex = dgvSensors.SelectedCells[0].RowIndex;
+                    DataGridViewRow selectedRow = dgvSensors.Rows[selectedrowindex];
+                    selectedSensor = Convert.ToString(selectedRow.Cells["idSensor"].Value);
+                }
+
+                string connString = "server=127.0.0.1;user id=root;database=pdc";
+                string Query = "DELETE FROM sensors WHERE idSensor='" + selectedSensor + "';";
+                MySqlConnection MyConn2 = new MySqlConnection(connString);
+                MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
+                MySqlDataReader MyReader2;
+                MyConn2.Open();
+                MyReader2 = MyCommand2.ExecuteReader();
+                MessageBox.Show("Sensor ID" + selectedSensor + " Deleted");
+                sensorList();
+                while (MyReader2.Read())
+                {
+                }
+                MyConn2.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }
