@@ -180,7 +180,6 @@ namespace PDC
             btnLoadFloorPlan.Enabled = false;
             btnUpdate.Enabled = true;
 
-            //MessageBox.Show(cmboHome.SelectedValue.ToString());
             dgv.AutoGenerateColumns = false;
 
             // Set Height of cell based on height input
@@ -428,6 +427,8 @@ namespace PDC
 
         private void btnAddDoor_Click(object sender, EventArgs e)
         {
+
+            // Check selected items - https://msdn.microsoft.com/en-us/library/system.windows.forms.checkedlistbox.setitemchecked(v=vs.110).aspx
             if ((string)chkDoor.Items[0] == "North" && chkDoor.GetItemCheckState(0) == CheckState.Checked)
             {
                 roomList[x, y].North = 1;

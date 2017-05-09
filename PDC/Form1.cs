@@ -25,11 +25,8 @@ namespace PDC
             MySqlCommand sqlCmd = conn.CreateCommand();
             sqlCmd.CommandType = CommandType.Text;
 
-            //sqlCmd.CommandText = "SELECT * FROM users WHERE username= '" + txtUsername.Text.Trim() + "' AND password = '" + txtPassword.Text.Trim() + "'";
-            sqlCmd.CommandText = "SELECT * FROM users WHERE username= 'test' AND password = 'test'";
-
-
-         
+            sqlCmd.CommandText = "SELECT * FROM users WHERE username= '" + txtUsername.Text.Trim() + "' AND password = '" + txtPassword.Text.Trim() + "'";
+       
 
 
             MySqlDataAdapter da = new MySqlDataAdapter();   
@@ -49,6 +46,13 @@ namespace PDC
             {
                 MessageBox.Show("Incorrect Username/Password");
             }
+        }
+
+        private void btnRegister_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            register x = new register();
+            x.Show();
         }
     }
 }
